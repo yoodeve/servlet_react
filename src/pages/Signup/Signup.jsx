@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import axios from "axios";
@@ -41,27 +41,32 @@ function Signup(props) {
         username,
       },
     };
-    axios
-      .get(
+
+    const signup = async () => {
+      let response = await axios.get(
         "http://localhost:8080/servlet_study/auth/signup/duplicate/username",
         option
-      )
-      .then((res) => {
-        console.log(res.data);
-        const isDuplicated = res.data;
-        if (!!isDuplicated) {
-          // 아이디가 중복
-        } else {
-          // 아이디가 처음
+      );
+      if (response.data) {
+        alert("중복된 아이디입니다.");
+        return;
+      }
+      try {
+        response = await axios.post(
+          "http://localhost:8080/servlet_study/auth/signup",
+          signupUser
+        );
+        if (!response.data) {
+          throw new Error(response);
         }
-        // axios
-        // .post("http://localhost:8080/servlet_study/auth/signup", signupUser)
-        // .then((res) => {
-        //   alert(res.data);
-        //   navigate("/signin");
-        // });
-      })
-      .catch(() => {});
+        alert("회원가입 성공");
+        navigate("/signin");
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    signup();
   };
 
   return (

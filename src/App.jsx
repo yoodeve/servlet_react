@@ -4,6 +4,7 @@ import MainLayout from "./components/MainLayout/MainLayout";
 import { Global, css } from "@emotion/react";
 import Signup from "./pages/Signup/Signup";
 import Asynchronous from "./pages/Asynchronous/Asynchronous";
+import Signin from "./pages/Signin/Signin";
 
 const SCommon = css`
   * {
@@ -19,7 +20,7 @@ function App() {
         <Routes>
           <Route path="/" />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<></>} />
+          <Route path="/signin" element={<Signin />} />
           <Route path="/async" element={<Asynchronous />} />
         </Routes>
       </MainLayout>

@@ -1,5 +1,8 @@
 import React from "react";
 
+// async를 붙이는 순간 function은 Promise를 반환
+async function printUser() {}
+
 function Asynchronous(props) {
   // 콜백(callback):함수에 함수를 넘겨서 내가 의도한 순서대로 동작하게 하는 것.
   /* 동기(synchronous):순서대로 동작함
@@ -64,10 +67,40 @@ function Asynchronous(props) {
       });
   };
 
+  const handleClick3 = () => {
+    const printUser2 = () => {
+      return new Promise((res, rej) => {
+        res("유저2");
+        rej(new Error("에러"));
+      });
+    };
+
+    const printUser = async () => {
+      // Promise의 resolve
+      try {
+        // await은 비동기 안에서 동기적으로 순서를 명령할 때.
+        // await이 있으면 비동기 응답이 온 이후에 다음 코드를 실행.
+        // await은 async안에서 사용가능.
+        await printUser2().then((r) => {
+          console.log(r);
+        });
+        throw new Error("에러처리");
+      } catch (err) {
+        console.log(err);
+      }
+      return "유저1";
+    };
+
+    printUser().then((result) => console.log(result));
+
+    printUser2().then((r) => console.log(r));
+  };
+
   return (
     <div>
       <button onClick={handleClick}>콜백 클릭</button>
       <button onClick={handleClick2}>프라미스 클릭</button>
+      <button onClick={handleClick3}>async 클릭</button>
     </div>
   );
 }
