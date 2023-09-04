@@ -3,6 +3,7 @@ import MainLayout from "./components/MainLayout/MainLayout";
 /** @jsxImportSource @emotion/react */
 import { Global, css } from "@emotion/react";
 import Signup from "./pages/Signup/Signup";
+import Asynchronous from "./pages/Asynchronous/Asynchronous";
 
 const SCommon = css`
   * {
@@ -17,8 +18,9 @@ function App() {
       <MainLayout>
         <Routes>
           <Route path="/" />
-          <Route path="/signin" element={<></>} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<></>} />
+          <Route path="/async" element={<Asynchronous />} />
         </Routes>
       </MainLayout>
     </>

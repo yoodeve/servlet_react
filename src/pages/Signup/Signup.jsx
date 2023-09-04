@@ -46,17 +46,22 @@ function Signup(props) {
         "http://localhost:8080/servlet_study/auth/signup/duplicate/username",
         option
       )
-      .then(() => {
-        axios
-          .post("http://localhost:8080/servlet_study/auth/signup", signupUser)
-          .then((res) => {
-            alert(res.data);
-            navigate("/signin");
-          });
+      .then((res) => {
+        console.log(res.data);
+        const isDuplicated = res.data;
+        if (!!isDuplicated) {
+          // 아이디가 중복
+        } else {
+          // 아이디가 처음
+        }
+        // axios
+        // .post("http://localhost:8080/servlet_study/auth/signup", signupUser)
+        // .then((res) => {
+        //   alert(res.data);
+        //   navigate("/signin");
+        // });
       })
-      .catch(() => {
-        alert("중복된 아이디입니다.");
-      });
+      .catch(() => {});
   };
 
   return (
