@@ -21,11 +21,13 @@ function Signin(props) {
 
   const handleSigninBtn = async () => {
     try {
-      let res = await axios.post("/signin", signInInfo);
-      if (!res.data) {
-        alert("이메일정보를 확인해주세요");
+      let res = await axios.post("/auth/signin", signInInfo);
+      console.log(res.data);
+      if (!res.data.token) {
+        alert("로그인정보를 확인해주세요");
         return;
       }
+      localStorage.setItem("token", res.data?.token);
       alert("환영합니다");
       navigate("/");
     } catch (err) {
